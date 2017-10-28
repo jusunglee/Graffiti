@@ -1,12 +1,18 @@
 #!/usr/local/bin/python3
 
-from flask import Flask
+from flask import Flask, abort, make_response, jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return "Hello, World!"
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+@app.route('/<firstname>')
+def index(firstname):
+    if firstname != "Muin":
+        abort(404)
+    return "Hello Muin"
 
 if __name__ == '__main__':
     app.run(debug=False)
