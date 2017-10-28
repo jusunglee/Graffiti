@@ -11,7 +11,7 @@ def not_found(error):
 
 @app.route('/<firstname>')
 def index(firstname):
-    mongo.push()
+    print(mongo.push())
     if firstname != "Muin":
         abort(404)
     return "Hello Muin"
