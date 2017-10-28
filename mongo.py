@@ -18,7 +18,14 @@ def firebase():
 
 
 def push(db1, user, key, val):
-    """push takes a datbase reference a key and val as strings and pushes them
-     to the given database. No return value"""
-    db1.child(key).set(val, user['idToken'])
-    usercount = db1.child("UserCount").get(user['idToken']).val()
+    fb = firebase()
+    auth = fb.auth()
+    user = auth.sign_in_with_email_and_password("test@test.com", "ganggang")
+    db = fb.database()
+    # usercount = db.child("howdy").get(user['idToken']).val()
+    data = {
+        'dawins': 'dessert'
+    }
+    db.child("howdy").push(data, user['idToken'])
+    # db.child("howdy").child("1").set(data)
+    return "Hello"
