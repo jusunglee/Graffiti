@@ -17,7 +17,7 @@ def firebase():
     return pyrebase.initialize_app(config)
 
 
-def push(db1, user, key, val):
+def push():
     fb = firebase()
     auth = fb.auth()
     user = auth.sign_in_with_email_and_password("test@test.com", "ganggang")
