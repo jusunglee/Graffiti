@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 
 from flask import Flask, abort, make_response, jsonify
+import mongo
 
 app = Flask(__name__)
 
@@ -10,6 +11,7 @@ def not_found(error):
 
 @app.route('/<firstname>')
 def index(firstname):
+    mongo.push()
     if firstname != "Muin":
         abort(404)
     return "Hello Muin"
