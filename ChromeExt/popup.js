@@ -134,12 +134,8 @@ $(document).ready(function () {
   var currentUser = {
     id: 1,
     avatarUrl: "http://f.cl.ly/items/0s1a0q1y2Z2k2I193k1y/default-user.png",
-<<<<<<< HEAD
-    name: "Test"
+    name: "Me"
   };
-=======
-    name: "Me"};
->>>>>>> 151c68ba3973dbb4ade5b54af604f5cafcf9fb2a
   var params = {
     url: encodeURIComponent(window.location.href),
     k: 10
