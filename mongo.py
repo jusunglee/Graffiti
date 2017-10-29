@@ -27,7 +27,6 @@ def hash_url(url):
     encoded_url = url.replace('.', '||DOT||')
     encoded_url = encoded_url.replace('%', '||PERCENT||')
     encoded_url = encoded_url.split('?')[0]
-    print(encoded_url)
     return encoded_url
 
 
@@ -39,7 +38,7 @@ def add_new_comment_to_db(url, comment, serialized_location):
         db.child("websites").child(encoded_url).set('')
     data = {
         'comment': comment,
-        'stars': 1,
+        'stars': 0,
         'location': serialized_location
     }
     comment_hash = db.child("websites").child(encoded_url).push(data)
@@ -50,18 +49,20 @@ def push_comment_like_to_db(url, comment_hash):
     encoded_url = hash_url(url)
     db, user = auth()
     num_stars = db.child("websites/" + encoded_url + "/" + comment_hash + "/" + "stars").get().val() + 1
-    print(num_stars)
     db.child("websites/" + encoded_url + "/" + comment_hash).update({'stars': num_stars})
     return
 
 
-def top10Comments(url):
-    db = auth()
+def get_top_k_comments(url, k=10):
+    db,user = auth()
     encoded_url = hash_url(url)
-    comments = db[url]
-    print(comments)
-    # comments.sort() # thumbs up are the first element in the tuple
-    # return comments[:10]
+    comments_list = dict(db.child("websites/" + encoded_url).get().val())
+    sorted_list = sorted(comments_list, key=lambda k: comments_list[k]['stars'], reverse=True)[:k]
+    sorted_list_dict = [[k, comments_list[k]] for k in sorted_list]
+    return sorted_list
+    
 
-ch = add_new_comment_to_db('https%3A%2F%2Fwww.nytimes.com%2F2017%2F08%2F12%2Fus%2Fpolitics%2Felizabeth-warren-democrats-liberals.html%3F_r%3D1','im gonna knock it. it\'s a little gay', '5')['name']
-push_comment_like_to_db('https%3A%2F%2Fwww.nytimes.com%2F2017%2F08%2F12%2Fus%2Fpolitics%2Felizabeth-warren-democrats-liberals.html%3F_r%3D1', ch)
+test_url = 'https%3A%2F%2Fwww.nytimes.com%2F2017%2F08%2F12%2Fus%2Fpolitics%2Felizabeth-warren-democrats-liberals.html%3F_r%3D1'
+ch = add_new_comment_to_db(test_url,'im gonna knock it. it\'s a little gay', '5')['name']
+push_comment_like_to_db(test_url, ch)
+get_top_k_comments(test_url)
