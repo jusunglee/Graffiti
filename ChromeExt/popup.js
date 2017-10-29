@@ -165,8 +165,6 @@ $(document).ready(function () {
             found = true;
             break;
           }
-<<<<<<< HEAD
-=======
           if (!found) {
             temp_dict_arr.push({
               'sectionId': dict['location'],
@@ -180,7 +178,6 @@ $(document).ready(function () {
             "comment": dict['comment'],
             "favs": dict['stars']
           });
->>>>>>> 151c68ba3973dbb4ade5b54af604f5cafcf9fb2a
         }
         if (!found) {
           temp_dict_arr.push({
