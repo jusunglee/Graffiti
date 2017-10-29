@@ -184,7 +184,7 @@ $(document).ready(function () {
         }
         temp_dict_arr[j]['comments'].push({
           "authorAvatarUrl": "http://f.cl.ly/items/0l1j230k080S0N1P0M3e/clay-davis.png",
-          "authorName": "Senator Clay Davis",
+          "authorName": "Anonymous",
           "comment": dict['comment'],
           "favs": dict['stars']
         });
