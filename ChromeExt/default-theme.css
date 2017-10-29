@@ -84,8 +84,6 @@
 }
 .side-comment .author-avatar {
   float: left;
-  width: 32px;
-  height: 32px;
   margin-right: 10px;
 }
 .side-comment .author-avatar img {
