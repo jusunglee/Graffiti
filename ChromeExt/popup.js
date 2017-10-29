@@ -121,44 +121,52 @@ var currentUser = {id: 1,
   avatarUrl: "http://f.cl.ly/items/0s1a0q1y2Z2k2I193k1y/default-user.png",
   name: "Test"};
 var existingComments = [
-  {
-    "sectionId": "1",
-    "comments": [
-      {
-        "authorAvatarUrl": "http://f.cl.ly/items/1W303Y360b260u3v1P0T/jon_snow_small.png",
-        "authorName": "Jon Sno",
-        "comment": "I'm Ned Stark's bastard. Related: I know nothing."
-      },
-      {
-        "authorAvatarUrl": "http://f.cl.ly/items/2o1a3d2f051L0V0q1p19/donald_draper.png",
-        "authorName": "Donald Draper",
-        "comment": "I need a scotch."
-      }
-    ]
-  },
-  {
-    "sectionId": "3",
-    "comments": [
-      {
-        "authorAvatarUrl": "http://f.cl.ly/items/0l1j230k080S0N1P0M3e/clay-davis.png",
-        "authorName": "Senator Clay Davis",
-        "comment": "These Side Comments are incredible. Sssshhhiiiiieeeee."
-      }
-    ]
-  }
+
 ];
 
-sideComments = new SideComments('#commentable-area', currentUser, existingComments);
-sideComments.on('commentPosted', function( commentobj ) {
-    params = {url:encodeURIComponent(window.location.href) , comment:commentobj.comment, location:commentobj.sectionId};
-    console.log(params);
-    $.ajax({
-        url: 'https://graffitihacktx.herokuapp.com/addcomment',
-        type: 'POST',
-        data: params,
-        success: function( savedComment ) {
-            // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
-            sideComments.insertComment(commentobj);
-        }
-    });
+
+
+
+$( document ).ready(function() {
+  var jq = document.createElement('script');
+  jq.onload = function(){};
+  jq.src = "https://code.jquery.com/jquery-2.1.1.min.js";
+  document.querySelector('head').appendChild(jq);
+  $(".super-duper-fav-button").click(function() {
+    console.log("Howdty");
+  }); // done async
+  console.log( "ready!" );
+  var params = {
+    url: encodeURIComponent(window.location.href),
+    k: 10
+  }
+  $.ajax({
+    url: 'https://graffitihacktx.herokuapp.com/gettopcomments',
+    type: 'GET',
+    data: params,
+    success: function( result ) {
+        // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
+        console.log("at the ready");
+        console.log(result);
+        // sideComments.insertComment(commentobj);
+    }
+  });
+
+  sideComments = new SideComments('#commentable-area', currentUser, existingComments);
+  sideComments.on('commentPosted', function( commentobj ) {
+      params = {url:encodeURIComponent(window.location.href) , comment:commentobj.comment, location:commentobj.sectionId};
+      $.ajax({
+          url: 'https://graffitihacktx.herokuapp.com/addcomment',
+          type: 'POST',
+          data: params,
+          success: function( savedComment ) {
+              // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
+              sideComments.insertComment(commentobj);
+          }
+      });
+  });
 });
+
+
+
+
