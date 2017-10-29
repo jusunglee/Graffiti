@@ -1,0 +1,5 @@
+apiKey = AIzaSyDtoYrzHAdIiIuYoZwxbEiHS1aeoYnlOT0
+authDomain = hacktx-857a1.firebaseapp.com
+databaseURL = https://hacktx-857a1.firebaseio.com
+storageBucket = hacktx-857a1.appspot.com
+messagingSenderId = 420250658531
