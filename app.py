@@ -26,9 +26,9 @@ def addComment():
 def getTopComments():
     if request.method == 'GET':
         url = request.args.get('url')
-        k = request.args.get('k')
+        k = int(request.args.get('k'))
+        print(url, k)
         top_comments = mongo.get_top_k_comments(url, k)
-        print(top_comments)
         return "a"
 
 if __name__ == '__main__':
