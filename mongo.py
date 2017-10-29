@@ -55,7 +55,7 @@ def push_comment_like_to_db(url, comment_hash):
 def get_top_k_comments(url, k=10):
     encoded_url = hash_url(url)
     db, user = auth()
-    does_exist = db.child("websites/" + encoded_url).get()
+    does_exist = db.child("websites/" + encoded_url).get().val()
     if does_exist is None:
         return ''
     comments_list = dict(db.child("websites/" + encoded_url).get().val())
