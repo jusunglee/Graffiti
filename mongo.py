@@ -18,10 +18,7 @@ def firebase():
 
 
 def push():
-    fb = firebase()
-    auth = fb.auth()
-    user = auth.sign_in_with_email_and_password("test@test.com", "ganggang")
-    db = fb.database()
+    auth()
     # usercount = db.child("howdy").get(user['idToken']).val()
     data = {
         'dawins': 'dessert'
@@ -29,3 +26,17 @@ def push():
     db.child("howdy").push(data, user['idToken'])
     # db.child("howdy").child("1").set(data)
     return "Hello"
+
+def auth():
+    fb = firebase()
+    auth = fb.auth()
+    user = auth.sign_in_with_email_and_password("test@test.com", "ganggang")
+    db = fb.database()
+    return 
+
+def top10Comments(url):
+    auth()
+    comments = db[url]
+    print(comments)
+    # comments.sort() # thumbs up are the first element in the tuple
+    # return comments[:10]
