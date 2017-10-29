@@ -62,7 +62,8 @@ def get_top_k_comments(url, k=10):
     return sorted_list
     
 
-test_url = 'https%3A%2F%2Fwww.nytimes.com%2F2017%2F08%2F12%2Fus%2Fpolitics%2Felizabeth-warren-democrats-liberals.html%3F_r%3D1'
-ch = add_new_comment_to_db(test_url,'im gonna knock it. it\'s a little gay', '5')['name']
-push_comment_like_to_db(test_url, ch)
-get_top_k_comments(test_url)
+if __name__ == "__main__":
+    test_url = 'https%3A%2F%2Fwww.nytimes.com%2F2017%2F08%2F12%2Fus%2Fpolitics%2Felizabeth-warren-democrats-liberals.html%3F_r%3D1'
+    ch = add_new_comment_to_db(test_url,'im gonna knock it. it\'s a little gay', '5')['name']
+    push_comment_like_to_db(test_url, ch)
+    get_top_k_comments(test_url)
