@@ -62,7 +62,7 @@ def get_top_k_comments(url, k=10):
     comments_list = dict(db.child("websites/" + encoded_url).get().val())
     sorted_list = sorted(comments_list, key=lambda k_: comments_list[k_]['stars'], reverse=True)[:k]
     sorted_list_dict = [[k_, comments_list[k_]] for k_ in sorted_list]
-    sorted_list = sorted(comments_list, key=lambda k_: comments_list[k_]['timestamp'])[:k]
+    sorted_list = sorted(comments_list, key=lambda k_: comments_list[k_]['timestamp'], reverse=True)[:k]
     for item in sorted_list:
         sorted_list_dict.append([item, comments_list[item]])
     return sorted_list_dict
