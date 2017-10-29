@@ -20,6 +20,11 @@
 .commentable-section:hover .side-comment .marker {
   display: block;
 }
+
+p.comment.right-of-avatar {
+  word-wrap: break-word;
+}
+
 .side-comment {
   position: absolute;
   top: 0;
