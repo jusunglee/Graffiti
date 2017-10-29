@@ -134,8 +134,12 @@ $(document).ready(function () {
   var currentUser = {
     id: 1,
     avatarUrl: "http://f.cl.ly/items/0s1a0q1y2Z2k2I193k1y/default-user.png",
+<<<<<<< HEAD
     name: "Test"
   };
+=======
+    name: "Me"};
+>>>>>>> 151c68ba3973dbb4ade5b54af604f5cafcf9fb2a
   var params = {
     url: encodeURIComponent(window.location.href),
     k: 10
@@ -161,6 +165,22 @@ $(document).ready(function () {
             found = true;
             break;
           }
+<<<<<<< HEAD
+=======
+          if (!found) {
+            temp_dict_arr.push({
+              'sectionId': dict['location'],
+              'comments': []
+            });
+            j = temp_dict_arr.length - 1;
+          }
+          temp_dict_arr[j]['comments'].push({
+            "authorAvatarUrl": "http://f.cl.ly/items/0l1j230k080S0N1P0M3e/clay-davis.png",
+            "authorName": "Anonymous",
+            "comment": dict['comment'],
+            "favs": dict['stars']
+          });
+>>>>>>> 151c68ba3973dbb4ade5b54af604f5cafcf9fb2a
         }
         if (!found) {
           temp_dict_arr.push({
