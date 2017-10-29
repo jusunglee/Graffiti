@@ -1,9 +1,11 @@
 #!/usr/local/bin/python3
 
 from flask import Flask, abort, make_response, jsonify, request
+from flask_cors import CORS
 import mongo
 
 app = Flask(__name__)
+CORS(app)
 
 @app.errorhandler(404)
 def not_found(error):
