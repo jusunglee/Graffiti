@@ -40,7 +40,7 @@ def add_new_comment_to_db(url, comment, serialized_location):
         'stars': 0,
         'location': serialized_location
     }
-    comment_hash = db.child("websites").child(encoded_url).push(data)
+    comment_hash = db.child("websites").child(encoded_url).push(data)['name']
     return comment_hash
 
 
