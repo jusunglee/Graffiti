@@ -19,7 +19,8 @@ def addComment():
         url = d['url'][0]
         comment = d['comment'][0]
         location = d['location'][0]
-        return mongo.add_new_comment_to_db(url, comment, location)
+        timestamp = d['timestamp'][0]
+        return mongo.add_new_comment_to_db(url, comment, location, timestamp)
     else:
         return "Bad request."
 

@@ -194,7 +194,7 @@ $(document).ready(function () {
       // do something with temp_dict_arr here
       sideComments = new SideComments('#commentable-area', currentUser, temp_dict_arr);
       sideComments.on('commentPosted', function (commentobj) {
-        params = { url: encodeURIComponent(window.location.href), comment: commentobj.comment, location: commentobj.sectionId };
+        params = { url: encodeURIComponent(window.location.href), comment: commentobj.comment, location: commentobj.sectionId, timestamp: Math.floor(Date.now() / 1000)};
         $.ajax({
           url: 'https://graffitihacktx.herokuapp.com/addcomment',
           type: 'POST',
@@ -207,7 +207,7 @@ $(document).ready(function () {
       });
 
       sideComments.on('commentDeleted', function (commentobj) {
-        console.log("comment upvoted");
+        // console.log(commentobj);
       });
     }
   });
