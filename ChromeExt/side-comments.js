@@ -619,10 +619,12 @@ Section.prototype.markerClick = function( event ) {
  * @param {Object} event The event object.
  */
 Section.prototype.addCommentClick = function( event ) {
-  
   event.preventDefault();
-  this.showCommentForm();
-
+  if (this.currentUser) {
+  	this.showCommentForm();
+  } else {
+  	this.eventPipe.emit('addCommentAttempted');
+  }
 };
 
 /**
@@ -657,7 +659,6 @@ Section.prototype.focusCommentBox = function() {
 	// "jump" in the form. It renders wider than it should be on screens under 768px
 	// and then jumps to a smaller size.
 	setTimeout(_.bind(function(){
-    console.log(this.$el.find('.comment-box'));
 		this.$el.find('.comment-box').get(0).focus();
 	}, this), 300);
 };
@@ -701,6 +702,7 @@ Section.prototype.postComment = function() {
   var comment = {
   	sectionId: this.id,
   	comment: commentBody,
+  	authorAvatarUrl: this.currentUser.avatarUrl,
   	authorName: this.currentUser.name,
   	authorId: this.currentUser.id,
   	authorUrl: this.currentUser.authorUrl || null
@@ -3238,14 +3240,10 @@ module.exports = function() {
 });
 
 require.register("side-comments/templates/section.html", function(exports, require, module){
-module.exports = '<div class="side-comment <%= sectionClasses %>">\n  <a href="#" class="marker">\n    <span><%= comments.length %></span>\n  </a>\n  \n  <div class="comments-wrapper">\n    <ul class="comments">\n      <% _.each(comments, function( comment ){ %>\n        <%= _.template(commentTemplate, { comment: comment, currentUser: currentUser }) %>\n      <% }) %>\n    </ul>\n    \n    <a href="#" class="add-comment">Leave a comment</a>\n    \n    <% if (currentUser){ %>\n      <div class="comment-form">\n            </div>\n       </p>\n        <input type="text" class="comment-box right-of-avatar" placeholder="Leave a comment...">\n        <div class="actions right-of-avatar">\n          <a href="#" class="action-link post">Post</a>\n          <a href="#" class="action-link cancel">Cancel</a>\n        </div>\n      </div>\n    <% } %>\n  </div>\n</div>';
+module.exports = '<div class="side-comment <%= sectionClasses %>">\n  <a href="#" class="marker">\n    <span><%= comments.length %></span>\n  </a>\n  \n  <div class="comments-wrapper">\n    <ul class="comments">\n      <% _.each(comments, function( comment ){ %>\n        <%= _.template(commentTemplate, { comment: comment, currentUser: currentUser }) %>\n      <% }) %>\n    </ul>\n    \n    <a href="#" class="add-comment">Leave a comment</a>\n    \n    <% if (currentUser){ %>\n      <div class="comment-form">\n        <div class="author-avatar">\n          <img src="<%= currentUser.avatarUrl %>">\n        </div>\n        <p class="author-name">\n          <%= currentUser.name %>\n        </p>\n        <input type="text" class="comment-box right-of-avatar" placeholder="Leave a comment...">\n        <div class="actions right-of-avatar">\n          <a href="#" class="action-link post">Post</a>\n          <a href="#" class="action-link cancel">Cancel</a>\n        </div>\n      </div>\n    <% } %>\n  </div>\n</div>';
 });
-
-
-
-
 require.register("side-comments/templates/comment.html", function(exports, require, module){
-module.exports = '<li data-comment-id="<%= comment.id %>">\n   </div>\n  <% if (comment.authorUrl) { %>\n   <% } else { %>\n     \n  <% } %>\n  <p class="comment right-of-avatar">\n    <%= comment.comment %>\n  </p>\n  <% if (currentUser && comment.authorId === currentUser.id){ %>\n <i class="fav-wrapper"><i class="fav-number">x</i><i>     </a><i class="fa fa-star-o super-duper-fav-button" style="cursor: pointer;" aria-hidden="true"></i></a>\n  <% } %>\n</li>';
+module.exports = '<li data-comment-id="<%= comment.id %>">\n  <div class="author-avatar">\n    <img src="<%= comment.authorAvatarUrl %>">\n  </div>\n  <% if (comment.authorUrl) { %>\n    <a class="author-name right-of-avatar" href="<%= comment.authorUrl %>">\n      <%= comment.authorName %>\n    </a>\n  <% } else { %>\n    <p class="author-name right-of-avatar">\n      <%= comment.authorName %>\n    </p>\n  <% } %>\n  <p class="comment right-of-avatar">\n    <%= comment.comment %>\n  </p>\n  <% if (currentUser && comment.authorId === currentUser.id){ %>\n  <a href="#" class="action-link delete">Delete</a>\n  <% } %>\n</li>';
 });
 require.alias("component-emitter/index.js", "side-comments/deps/emitter/index.js");
 require.alias("component-emitter/index.js", "emitter/index.js");
