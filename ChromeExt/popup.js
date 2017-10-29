@@ -114,17 +114,13 @@ function wrapDiv() {
   console.log("divs initialized");
 }
 
-wrapDiv();
 
-var SideComments = require('side-comments');
-var currentUser = {id: 1,
-  avatarUrl: "http://f.cl.ly/items/0s1a0q1y2Z2k2I193k1y/default-user.png",
-  name: "Test"};
 
 
 
 
 $( document ).ready(function() {
+  
   var jq = document.createElement('script');
   jq.onload = function(){};
   jq.src = "https://code.jquery.com/jquery-2.1.1.min.js";
@@ -133,15 +129,23 @@ $( document ).ready(function() {
     console.log("Howdty");
   }); // done async
   console.log( "ready!" );
+  wrapDiv();
+  
+  var SideComments = require('side-comments');
+  var currentUser = {id: 1,
+    avatarUrl: "http://f.cl.ly/items/0s1a0q1y2Z2k2I193k1y/default-user.png",
+    name: "Test"};
   var params = {
     url: encodeURIComponent(window.location.href),
     k: 10
   }
+  console.log("two chainz");
   $.ajax({
     url: 'https://graffitihacktx.herokuapp.com/gettopcomments',
     type: 'GET',
     data: params,
     success: function( result ) {
+      console.log("three chainz");
         // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
         // sideComments.insertComment(commentobj);
         var temp_dict_arr = [];
@@ -171,7 +175,9 @@ $( document ).ready(function() {
             "favs": dict['stars']
           });
         }
-        print(temp_dict_arr);
+        console.log(temp_dict_arr);
+
+        // do something with temp_dict_arr here
         sideComments = new SideComments('#commentable-area', currentUser, temp_dict_arr);
         sideComments.on('commentPosted', function( commentobj ) {
           params = {url:encodeURIComponent(window.location.href) , comment:commentobj.comment, location:commentobj.sectionId};
