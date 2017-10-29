@@ -133,7 +133,7 @@ $(document).ready(function () {
   var SideComments = require('side-comments');
   var currentUser = {
     id: 1,
-    avatarUrl: "http://f.cl.ly/items/0s1a0q1y2Z2k2I193k1y/default-user.png",
+    avatarUrl: "https://i.imgur.com/h2nA660.png",
     name: "Me"
   };
   var params = {
@@ -169,7 +169,7 @@ $(document).ready(function () {
             j = temp_dict_arr.length - 1;
           }
           temp_dict_arr[j]['comments'].push({
-            "authorAvatarUrl": "http://f.cl.ly/items/0l1j230k080S0N1P0M3e/clay-davis.png",
+            "authorAvatarUrl": "https://i.imgur.com/uoUoeLJ.png",
             "authorName": "Anonymous",
             "comment": dict['comment'],
             "favs": dict['stars']
@@ -183,7 +183,7 @@ $(document).ready(function () {
           j = temp_dict_arr.length - 1;
         }
         temp_dict_arr[j]['comments'].push({
-          "authorAvatarUrl": "http://f.cl.ly/items/0l1j230k080S0N1P0M3e/clay-davis.png",
+          "authorAvatarUrl": "https://i.imgur.com/uoUoeLJ.png",
           "authorName": "Anonymous",
           "comment": dict['comment'],
           "favs": dict['stars']
