@@ -758,12 +758,12 @@ require.register("side-comments/js/section.js", function (exports, require, modu
    * @param commentId The ID of the comment to be removed from this section.
    */
   Section.prototype.removeComment = function (commentId) {
-    this.comments = _.reject(this.comments, { id: commentId });
-    this.$el.find('.side-comment .comments li[data-comment-id="' + commentId + '"]').remove();
-    this.updateCommentCount();
-    if (this.comments.length < 1) {
-      this.$el.find('.side-comment').removeClass('has-comments');
-    }
+    // this.comments = _.reject(this.comments, { id: commentId });
+    // this.$el.find('.side-comment .comments li[data-comment-id="' + commentId + '"]').remove();
+    // this.updateCommentCount();
+    // if (this.comments.length < 1) {
+    //   this.$el.find('.side-comment').removeClass('has-comments');
+    // }
   };
 
   /**
