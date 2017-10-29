@@ -3245,7 +3245,7 @@ module.exports = '<div class="side-comment <%= sectionClasses %>">\n  <a href="#
 
 
 require.register("side-comments/templates/comment.html", function(exports, require, module){
-module.exports = '<li data-comment-id="<%= comment.id %>">\n   </div>\n  <% if (comment.authorUrl) { %>\n   <% } else { %>\n     \n  <% } %>\n  <p class="comment right-of-avatar">\n    <%= comment.comment %>\n  </p>\n  <% if (currentUser && comment.authorId === currentUser.id){ %>\n <a class="fav-wrapper"><a class="fav-number">x</a><a>     </a><i class="fa fa-star-o super-duper-fav-button" style="cursor: pointer;" aria-hidden="true"></i></a>\n  <% } %>\n</li>';
+module.exports = '<li data-comment-id="<%= comment.id %>">\n   </div>\n  <% if (comment.authorUrl) { %>\n   <% } else { %>\n     \n  <% } %>\n  <p class="comment right-of-avatar">\n    <%= comment.comment %>\n  </p>\n  <% if (currentUser && comment.authorId === currentUser.id){ %>\n <i class="fav-wrapper"><i class="fav-number">x</i><i>     </a><i class="fa fa-star-o super-duper-fav-button" style="cursor: pointer;" aria-hidden="true"></i></a>\n  <% } %>\n</li>';
 });
 require.alias("component-emitter/index.js", "side-comments/deps/emitter/index.js");
 require.alias("component-emitter/index.js", "emitter/index.js");
