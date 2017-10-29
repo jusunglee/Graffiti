@@ -1,4 +1,3 @@
-"""database contains the interface to interact directly with the firebase backend"""
 import pyrebase
 
 
