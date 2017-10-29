@@ -134,7 +134,7 @@ $( document ).ready(function() {
   var SideComments = require('side-comments');
   var currentUser = {id: 1,
     avatarUrl: "http://f.cl.ly/items/0s1a0q1y2Z2k2I193k1y/default-user.png",
-    name: "Test"};
+    name: "Me"};
   var params = {
     url: encodeURIComponent(window.location.href),
     k: 10
@@ -170,7 +170,7 @@ $( document ).ready(function() {
           }
           temp_dict_arr[j]['comments'].push({
             "authorAvatarUrl": "http://f.cl.ly/items/0l1j230k080S0N1P0M3e/clay-davis.png",
-            "authorName": "Senator Clay Davis",
+            "authorName": "Anonymous",
             "comment": dict['comment'],
             "favs": dict['stars']
           });
