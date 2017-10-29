@@ -749,7 +749,7 @@ require.register("side-comments/js/section.js", function (exports, require, modu
    */
   Section.prototype.deleteComment = function (commentId) {
     var comment = _.find(this.comments, { id: commentId });
-    comment.sectionId = this.id;
+    //comment.sectionId = this.id;
     this.eventPipe.emit('commentDeleted', comment);
   };
 
