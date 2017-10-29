@@ -169,7 +169,7 @@ $(document).ready(function () {
             j = temp_dict_arr.length - 1;
           }
           temp_dict_arr[j]['comments'].push({
-            "authorAvatarUrl": "https://i.imgur.com/uoUoeLJ.png",
+            "authorAvatarUrl": "https://i.imgur.com/SXvKB4b.png",
             "authorName": "Anonymous",
             "comment": dict['comment'],
             "favs": dict['stars']
@@ -183,7 +183,7 @@ $(document).ready(function () {
           j = temp_dict_arr.length - 1;
         }
         temp_dict_arr[j]['comments'].push({
-          "authorAvatarUrl": "https://i.imgur.com/uoUoeLJ.png",
+          "authorAvatarUrl": "https://i.imgur.com/SXvKB4b.png",
           "authorName": "Anonymous",
           "comment": dict['comment'],
           "favs": dict['stars']
