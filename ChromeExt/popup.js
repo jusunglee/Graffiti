@@ -128,41 +128,37 @@ var existingComments = [
         "authorAvatarUrl": "http://f.cl.ly/items/1W303Y360b260u3v1P0T/jon_snow_small.png",
         "authorName": "Jon Sno",
         "comment": "I'm Ned Stark's bastard. Related: I know nothing."
+      },
+      {
+        "authorAvatarUrl": "http://f.cl.ly/items/2o1a3d2f051L0V0q1p19/donald_draper.png",
+        "authorName": "Donald Draper",
+        "comment": "I need a scotch."
+      }
+    ]
+  },
+  {
+    "sectionId": "3",
+    "comments": [
+      {
+        "authorAvatarUrl": "http://f.cl.ly/items/0l1j230k080S0N1P0M3e/clay-davis.png",
+        "authorName": "Senator Clay Davis",
+        "comment": "These Side Comments are incredible. Sssshhhiiiiieeeee."
       }
     ]
   }
 ];
 
-sideComments = new SideComments('#commentable-area', null, existingComments);
-
-
-
-// This extension loads the saved background color for the current tab if one
-// exists. The user can select a new background color from the dropdown for the
-// current page, and it will be saved as part of the extension's isolated
-// storage. The chrome.storage API is used for this purpose. This is different
-// from the window.localStorage API, which is synchronous and stores data bound
-// to a document's origin. Also, using chrome.storage.sync instead of
-// chrome.storage.local allows the extension data to be synced across multiple
-// user devices.
-// document.addEventListener('DOMContentLoaded', () => {
-//   getCurrentTabUrl((url) => {
-//     var dropdown = document.getElementById('dropdown');
-
-//     // Load the saved background color for this page and modify the dropdown
-//     // value, if needed.
-//     getSavedBackgroundColor(url, (savedColor) => {
-//       if (savedColor) {
-//         changeBackgroundColor(savedColor);
-//         dropdown.value = savedColor;
-//       }
-//     });
-
-//     // Ensure the background color is changed and saved when the dropdown
-//     // selection changes.
-//     dropdown.addEventListener('change', () => {
-//       changeBackgroundColor(dropdown.value);
-//       saveBackgroundColor(url, dropdown.value);
-//     });
-//   });
-// });
+sideComments = new SideComments('#commentable-area', currentUser, existingComments);
+sideComments.on('commentPosted', function( commentobj ) {
+    params = {url:encodeURIComponent(window.location.href) , comment:commentobj.comment, location:commentobj.sectionId};
+    console.log(params);
+    $.ajax({
+        url: 'https://graffitihacktx.herokuapp.com/addcomment',
+        type: 'POST',
+        data: params,
+        success: function( savedComment ) {
+            // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
+            sideComments.insertComment(commentobj);
+        }
+    });
+});
