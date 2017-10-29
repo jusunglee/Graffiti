@@ -21,7 +21,14 @@ def addComment():
     else:
         return "Bad request."
 
-
+@app.route('/gettopcomments', methods = ['GET'])
+def getTopComments():
+    if request.method == 'GET':
+        url = request.args.get('url')
+        k = request.args.get('k')
+        top_comments = mongo.get_top_k_comments(url, k)
+        print(top_comments)
+        return "a"
 
 if __name__ == '__main__':
     app.run(debug=False)
