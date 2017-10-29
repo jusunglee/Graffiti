@@ -98,17 +98,19 @@ function saveBackgroundColor(url, color) {
 function wrapDiv() {
   var div = document.createElement("div");
   div.id = "commentable-area";
-  var i = 0
-  while (document.body.firstChild)
+  while (document.body.firstElementChild)
   {
-    console.log(document.body.firstChild);
-    document.body.firstChild.dataset.sectionId = i.toString();
-    document.body.firstChild.className += " commentable-section";
-    console.log(document.body.firstChild);
-    div.appendChild(document.body.firstChild);
-    i += 1
+    div.appendChild(document.body.firstElementChild);
+    
   }
   document.body.appendChild(div);
+  
+  var array = document.getElementsByTagName('P');
+  for (var i = 0; i < array.length; i++) {
+    array[i].dataset.sectionId = i.toString();
+    array[i].className += " commentable-section";
+  }
+    
   console.log("divs initialized");
 }
 
