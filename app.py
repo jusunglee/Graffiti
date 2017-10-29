@@ -13,11 +13,12 @@ def not_found(error):
 @app.route('/addcomment', methods = ['POST'])
 def addComment():
     if request.method == 'POST':
-        url = request.form['url']
-        comment = request.form['comment']
-        location = request.form['location']
-        print(url, comment, location)
-        return add_new_comment_to_db(url, comment, location)
+        d = dict(request.form)
+        print(d)
+        url = d['url'][0]
+        comment = d['comment'][0]
+        location = d['location'][0]
+        return mongo.add_new_comment_to_db(url, comment, location)
     else:
         return "Bad request."
 
