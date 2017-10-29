@@ -29,7 +29,8 @@ def getTopComments():
         k = int(request.args.get('k'))
         print(url, k)
         top_comments = mongo.get_top_k_comments(url, k)
-        return "a"
+        d = {'top_comments': top_comments}
+        return jsonify(d)
 
 if __name__ == '__main__':
     app.run(debug=False)
