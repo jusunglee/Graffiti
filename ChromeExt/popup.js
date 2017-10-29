@@ -98,19 +98,18 @@ function saveBackgroundColor(url, color) {
 function wrapDiv() {
   var div = document.createElement("div");
   div.id = "commentable-area";
-  while (document.body.firstElementChild)
-  {
+  while (document.body.firstElementChild) {
     div.appendChild(document.body.firstElementChild);
-    
+
   }
   document.body.appendChild(div);
-  
+
   var array = document.getElementsByTagName('P');
   for (var i = 0; i < array.length; i++) {
     array[i].dataset.sectionId = i.toString();
     array[i].className += " commentable-section";
   }
-    
+
   console.log("divs initialized");
 }
 
@@ -119,22 +118,24 @@ function wrapDiv() {
 
 
 
-$( document ).ready(function() {
-  
+$(document).ready(function () {
+
   var jq = document.createElement('script');
-  jq.onload = function(){};
+  jq.onload = function () { };
   jq.src = "https://code.jquery.com/jquery-2.1.1.min.js";
   document.querySelector('head').appendChild(jq);
-  $(".super-duper-fav-button").click(function() {
+  $(".super-duper-fav-button").click(function () {
     console.log("Howdty");
   }); // done async
-  console.log( "ready!" );
+  console.log("ready!");
   wrapDiv();
-  
+
   var SideComments = require('side-comments');
-  var currentUser = {id: 1,
+  var currentUser = {
+    id: 1,
     avatarUrl: "http://f.cl.ly/items/0s1a0q1y2Z2k2I193k1y/default-user.png",
-    name: "Test"};
+    name: "Test"
+  };
   var params = {
     url: encodeURIComponent(window.location.href),
     k: 10
@@ -144,52 +145,56 @@ $( document ).ready(function() {
     url: 'https://graffitihacktx.herokuapp.com/gettopcomments',
     type: 'GET',
     data: params,
-    success: function( result ) {
+    success: function (result) {
       console.log("three chainz");
-        // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
-        // sideComments.insertComment(commentobj);
-        var temp_dict_arr = [];
-        for(var i = 0; i < result.length; i++) {
-          var temp = result[i];
-          var id = temp[0];
-          var dict = temp[1];
-          var found = false;
-          var j = 0;
-          for (j = 0; j < temp_dict_arr.length; j++) {
-            if (temp_dict_arr[j]['sectionId'] == dict['location']) {
-              found = true;
-              break;
-            }
+      // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
+      // sideComments.insertComment(commentobj);
+      var temp_dict_arr = [];
+      for (var i = 0; i < result.length; i++) {
+        var temp = result[i];
+        var id = temp[0];
+        var dict = temp[1];
+        var found = false;
+        var j = 0;
+        for (j = 0; j < temp_dict_arr.length; j++) {
+          if (temp_dict_arr[j]['sectionId'] == dict['location']) {
+            found = true;
+            break;
           }
-          if (!found) {
-            temp_dict_arr.push({
-              'sectionId': dict['location'],
-              'comments': []
-            });
-            j = temp_dict_arr.length - 1;
-          }
-          temp_dict_arr[j]['comments'].push({
-            "authorAvatarUrl": "http://f.cl.ly/items/0l1j230k080S0N1P0M3e/clay-davis.png",
-            "authorName": "Senator Clay Davis",
-            "comment": dict['comment'],
-            "favs": dict['stars']
-          });
         }
-        console.log(temp_dict_arr);
-
-        // do something with temp_dict_arr here
-        sideComments = new SideComments('#commentable-area', currentUser, temp_dict_arr);
-        sideComments.on('commentPosted', function( commentobj ) {
-          params = {url:encodeURIComponent(window.location.href) , comment:commentobj.comment, location:commentobj.sectionId};
-          $.ajax({
-              url: 'https://graffitihacktx.herokuapp.com/addcomment',
-              type: 'POST',
-              data: params,
-              success: function( savedComment ) {
-                  // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
-                  sideComments.insertComment(commentobj);
-              }
+        if (!found) {
+          temp_dict_arr.push({
+            'sectionId': dict['location'],
+            'comments': []
           });
+          j = temp_dict_arr.length - 1;
+        }
+        temp_dict_arr[j]['comments'].push({
+          "authorAvatarUrl": "http://f.cl.ly/items/0l1j230k080S0N1P0M3e/clay-davis.png",
+          "authorName": "Senator Clay Davis",
+          "comment": dict['comment'],
+          "favs": dict['stars']
+        });
+      }
+      console.log(temp_dict_arr);
+
+      // do something with temp_dict_arr here
+      sideComments = new SideComments('#commentable-area', currentUser, temp_dict_arr);
+      sideComments.on('commentPosted', function (commentobj) {
+        params = { url: encodeURIComponent(window.location.href), comment: commentobj.comment, location: commentobj.sectionId };
+        $.ajax({
+          url: 'https://graffitihacktx.herokuapp.com/addcomment',
+          type: 'POST',
+          data: params,
+          success: function (savedComment) {
+            // Once the comment is saved, you can insert the comment into the comment stream with "insertComment(comment)".
+            sideComments.insertComment(commentobj);
+          }
+        });
+      });
+
+      sideComments.on('commentDeleted', function (commentobj) {
+        console.log("comment upvoted");
       });
     }
   });
