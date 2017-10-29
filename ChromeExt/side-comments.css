@@ -21,6 +21,11 @@
   display: block;
 }
 
+i.fa.fa-heart {
+  float:right;
+  margin-top: -17%;
+}
+
 p.comment.right-of-avatar {
   word-wrap: break-word;
 }
